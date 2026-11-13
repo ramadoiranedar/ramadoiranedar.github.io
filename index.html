@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raden Ario Damar — Senior Software Engineer</title>
+<meta name="description" content="Senior Software Engineer in Yogyakarta. Angular, TypeScript, Laravel and Go. Hospital information systems, BPJS and SATUSEHAT integrations.">
+<meta name="theme-color" content="#09090B">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2309090B'/%3E%3Cpath d='M9 22V10h6.2c2.6 0 4.2 1.3 4.2 3.5S17.800 17 15.200 17H12.500M17 17l4 5' fill='none' stroke='%2310B981' stroke-width='2.400' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  // Apply saved theme before first paint to avoid a flash.
+  try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<style>
+  :root{
+    --bg:#09090B;
+    --surface:#111113;
+    --hover:#18181B;
+    --text:#FAFAFA;
+    --text2:#A1A1AA;
+    --muted:#71717A;
+    --line:rgba(255,255,255,0.08);
+    --line-strong:rgba(255,255,255,0.16);
+    --ok:#10B981;
+    --focus:#3B82F6;
+    --backdrop:rgba(0,0,0,0.62);
+    --ease:cubic-bezier(0.16,1,0.3,1);
+    --dur:150ms;
+    --r:6px;
+    --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    color-scheme:dark;
+  }
+  :root[data-theme="light"]{
+    --bg:#FFFFFF;
+    --surface:#F4F4F5;
+    --hover:#E4E4E7;
+    --text:#09090B;
+    --text2:#3F3F46;
+    --muted:#6B6B74;
+    --line:rgba(0,0,0,0.10);
+    --line-strong:rgba(0,0,0,0.20);
+    --ok:#047857;
+    --focus:#2563EB;
+    --backdrop:rgba(0,0,0,0.38);
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:auto;}
+  body{
+    background:var(--bg);color:var(--text2);
+    font-family:var(--sans);font-size:15px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  a{color:var(--text);text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:3px;transition:text-decoration-color var(--dur) var(--ease);}
+  a:hover{text-decoration-color:var(--text);}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit;}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:var(--r);}
+  ::selection{background:var(--focus);color:#fff;}
+  h1,h2,h3,h4{color:var(--text);font-weight:600;letter-spacing:-0.02em;line-height:1.2;}
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  [hidden]{display:none!important;}
+
+  /* ---------- top bar ---------- */
+  .topbar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);}
+  .topbar .wrap{height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .brand{white-space:nowrap;min-width:0;font-weight:600;color:var(--text);letter-spacing:-0.02em;text-decoration:none;font-size:14px;display:flex;align-items:center;gap:10px;}
+  .brand i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:block;}
+  .tools{display:flex;align-items:center;gap:8px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 10px;
+    border:1px solid var(--line);border-radius:var(--r);background:transparent;
+    font-size:13px;color:var(--text2);white-space:nowrap;text-decoration:none;
+    transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease);
+  }
+  .btn:hover{background:var(--hover);border-color:var(--line-strong);color:var(--text);}
+  .btn.primary{background:var(--text);color:var(--bg);border-color:var(--text);font-weight:500;}
+  .btn.primary:hover{background:var(--text2);border-color:var(--text2);color:var(--bg);}
+  kbd{
+    font-family:var(--mono);font-size:11px;line-height:1;padding:3px 5px;border-radius:4px;
+    border:1px solid var(--line-strong);color:var(--muted);background:var(--surface);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 44px;}
+  .pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;height:24px;padding:0 10px;
+    border:1px solid var(--line);border-radius:999px;font-family:var(--mono);font-size:12px;color:var(--text2);
+  }
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);}
+  .hero h1{font-size:clamp(32px,5.4vw,48px);font-weight:600;}
+  .hero .titleline{margin-top:10px;font-size:clamp(16px,2.2vw,19px);color:var(--text2);letter-spacing:-0.01em;}
+  .hero .summary{margin-top:22px;max-width:62ch;font-size:16px;color:var(--text2);}
+  .hero .summary strong{color:var(--text);font-weight:500;}
+  .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;}
+  .actions .btn{height:34px;padding:0 14px;font-size:13.5px;}
+
+  /* ---------- telemetry ---------- */
+  .telemetry{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .tele{padding:24px 24px 22px;border-left:1px solid var(--line);}
+  .tele:first-child{border-left:0;padding-left:0;}
+  .tele .v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:30px;font-weight:500;color:var(--text);letter-spacing:-0.02em;line-height:1.1;}
+  .tele .v small{font-size:14px;color:var(--muted);margin-left:4px;font-weight:400;}
+  .tele .l{margin-top:8px;font-size:13px;color:var(--muted);line-height:1.45;max-width:24ch;}
+
+  /* ---------- sections ---------- */
+  section.block{padding:64px 0 0;scroll-margin-top:60px;}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+  .sec-head h2{font-size:20px;}
+  .sec-head .sub{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .filters{display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{
+    height:28px;padding:0 10px;border:1px solid var(--line);border-radius:var(--r);
+    font-size:12.5px;color:var(--text2);transition:background var(--dur) var(--ease),color var(--dur) var(--ease),border-color var(--dur) var(--ease);
+  }
+  .chip:hover{background:var(--hover);color:var(--text);}
+  .chip[aria-pressed="true"]{background:var(--hover);color:var(--text);border-color:var(--line-strong);}
+
+  /* ---------- experience ---------- */
+  .roles{border-top:1px solid var(--line);}
+  .role{display:grid;grid-template-columns:150px minmax(0,1fr);column-gap:24px;padding:24px 0;border-bottom:1px solid var(--line);}
+  .role .yrs{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted);padding-top:3px;}
+  .role h3{font-size:16px;}
+  .role .co{color:var(--text2);margin-top:2px;font-size:14.5px;}
+  .role ul{list-style:none;margin-top:12px;}
+  .role li{position:relative;padding-left:16px;margin-bottom:6px;color:var(--text2);max-width:72ch;}
+  .role li::before{content:"";position:absolute;left:0;top:0.72em;width:6px;height:1px;background:var(--muted);}
+  .role li strong{color:var(--text);font-weight:500;}
+  .role .tags{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--muted);}
+
+  /* ---------- case studies ---------- */
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;}
+  .case{
+    display:flex;flex-direction:column;gap:14px;background:var(--surface);padding:22px;text-align:left;
+    transition:background var(--dur) var(--ease);min-height:100%;
+  }
+  .case:hover{background:var(--hover);}
+  .case:focus-visible{outline-offset:-2px;}
+  .case .kicker{font-family:var(--mono);font-size:12px;color:var(--muted);}
+  .case h3{font-size:16.5px;}
+  .case p{font-size:14px;color:var(--text2);line-height:1.55;}
+  .case .stack{font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.6;}
+  .case .impact{margin-top:auto;display:flex;gap:22px;padding-top:14px;border-top:1px solid var(--line);}
+  .case .impact div{font-family:var(--mono);font-variant-numeric:tabular-nums;}
+  .case .impact b{display:block;font-size:19px;font-weight:500;color:var(--text);letter-spacing:-0.02em;}
+  .case .impact span{font-size:11.5px;color:var(--muted);font-family:var(--sans);}
+  .case .open{font-size:12.5px;color:var(--text2);}
+  .case:hover .open{color:var(--text);}
+
+  /* ---------- stack matrix ---------- */
+  .matrix{border-top:1px solid var(--line);}
+  .mrow{display:grid;grid-template-columns:220px minmax(0,1fr);column-gap:24px;padding:16px 0;border-bottom:1px solid var(--line);}
+  .mrow dt{font-size:13.5px;color:var(--muted);}
+  .mrow dd{color:var(--text);font-family:var(--mono);font-size:13px;line-height:1.9;}
+  .mrow dd .em{color:var(--text);font-weight:500;}
+  .mrow dd span+span::before{content:"/";color:var(--muted);margin:0 8px 0 4px;}
+
+  /* ---------- education / footer ---------- */
+  .edu{display:grid;grid-template-columns:150px minmax(0,1fr);column-gap:24px;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .edu .yrs{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px;}
+  .edu h3{font-size:15.5px;}
+  .edu p{color:var(--text2);font-size:14.5px;}
+  footer{padding:36px 0 56px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted);}
+
+  /* ---------- overlay: palette ---------- */
+  .backdrop{position:fixed;inset:0;z-index:40;background:var(--backdrop);}
+  .palette{position:fixed;inset:0;z-index:50;display:flex;justify-content:center;align-items:flex-start;padding:14vh 16px 0;}
+  .palette .box{
+    width:100%;max-width:560px;background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;
+    overflow:hidden;display:flex;flex-direction:column;max-height:min(520px,72vh);
+  }
+  .palette input{
+    width:100%;height:48px;padding:0 16px;background:transparent;border:0;border-bottom:1px solid var(--line);
+    color:var(--text);font:inherit;font-size:15px;outline:none;
+  }
+  .palette input::placeholder{color:var(--muted);}
+  .palette .box:focus-within{border-color:var(--focus);}
+  .plist{list-style:none;overflow:auto;padding:6px;}
+  .pgroup{padding:8px 10px 4px;font-size:12px;color:var(--muted);}
+  .popt{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px;border-radius:var(--r);
+    color:var(--text2);font-size:14px;cursor:pointer;
+  }
+  .popt[aria-selected="true"]{background:var(--hover);color:var(--text);}
+  .popt .hint{font-family:var(--mono);font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:46%;}
+  .pempty{padding:22px 12px;text-align:center;color:var(--muted);font-size:14px;}
+  .pfoot{display:flex;gap:16px;padding:9px 14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);}
+  .pfoot span{display:inline-flex;align-items:center;gap:6px;}
+
+  /* ---------- overlay: drawer ---------- */
+  .drawer{
+    position:fixed;top:0;right:0;bottom:0;z-index:50;width:min(600px,100vw);
+    background:var(--surface);border-left:1px solid var(--line-strong);
+    transform:translateX(100%);visibility:hidden;overflow-y:auto;overscroll-behavior:contain;
+    transition:transform var(--dur) var(--ease),visibility 0s linear var(--dur);
+  }
+  .drawer.open{transform:none;visibility:visible;transition:transform var(--dur) var(--ease),visibility 0s;}
+  .drawer .dhead{position:sticky;top:0;background:var(--surface);display:flex;justify-content:space-between;align-items:center;padding:12px 24px;border-bottom:1px solid var(--line);z-index:1;}
+  .drawer .dhead .mono{font-size:12px;color:var(--muted);}
+  .drawer .dbody{padding:28px 24px 48px;}
+  .drawer h3{font-size:24px;}
+  .drawer .prob{margin-top:12px;color:var(--text2);}
+  .drawer h4{font-size:13.5px;margin:32px 0 12px;color:var(--text);}
+  .drawer pre{
+    font-family:var(--mono);font-size:12.5px;line-height:1.5;color:var(--text);
+    background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:16px;overflow-x:auto;white-space:pre;
+  }
+  .drawer ol{padding-left:0;list-style:none;counter-reset:t;}
+  .drawer ol li{counter-increment:t;position:relative;padding:12px 0 12px 34px;border-top:1px solid var(--line);color:var(--text2);}
+  .drawer ol li:last-child{border-bottom:1px solid var(--line);}
+  .drawer ol li::before{content:counter(t);position:absolute;left:0;top:13px;font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .drawer ol li strong{color:var(--text);font-weight:500;}
+  .drawer .dstack{font-family:var(--mono);font-size:12.5px;color:var(--text2);line-height:1.8;}
+  .drawer .dlinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+
+  .toast{
+    position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;
+    background:var(--text);color:var(--bg);font-size:13px;padding:8px 14px;border-radius:var(--r);
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .cases{grid-template-columns:1fr;}
+    .telemetry{grid-template-columns:repeat(2,1fr);}
+    .tele{padding:20px 20px 18px;}
+    .tele:nth-child(odd){border-left:0;padding-left:0;}
+    .tele:nth-child(n+3){border-top:1px solid var(--line);}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 18px;}
+    .hero{padding:48px 0 36px;}
+    .role,.edu{grid-template-columns:1fr;}
+    .role .yrs,.edu .yrs{padding-bottom:6px;}
+    .mrow{grid-template-columns:minmax(0,1fr);row-gap:4px;}
+    .tools .btn.hide-sm,#print-btn{display:none;}
+    .topbar .wrap{gap:8px;}
+    .popt .hint{display:none;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition:none!important;}
+  }
+
+  /* ---------- print: clean black-and-white document ---------- */
+  @page{size:A4;margin:14mm 14mm;}
+  @media print{
+    :root,:root[data-theme="light"],:root[data-theme="dark"]{
+      --bg:#fff;--surface:#fff;--hover:#fff;--text:#000;--text2:#222;--muted:#555;
+      --line:#bbb;--line-strong:#888;--ok:#000;color-scheme:light;
+    }
+    body{font-size:10pt;line-height:1.45;}
+    .topbar,.palette,.backdrop,.drawer,.filters,.actions,.toast,.case .open,.pill .dot,#exp-count{display:none!important;}
+    .wrap{max-width:none;padding:0;}
+    .hero{padding:0 0 14px;}
+    .hero h1{font-size:24pt;}
+    section.block{padding-top:20px;break-inside:auto;}
+    .role[hidden]{display:grid!important;}
+    .role,.case,.mrow{break-inside:avoid;}
+    .cases{grid-template-columns:repeat(3,1fr);border-color:#bbb;}
+    .case{padding:12px;gap:8px;}
+    .case p{font-size:9pt;}
+    .tele .v{font-size:18pt;}
+    a{text-decoration:none;color:#000;}
+    footer{padding:16px 0 0;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" id="brand"><i aria-hidden="true"></i><span data-bind="name"></span></a>
+    <div class="tools">
+      <button class="btn" id="open-palette" type="button" aria-haspopup="dialog" aria-label="Open command palette">
+        <span class="hide-sm" style="font-size:13px">Search</span> <kbd id="kbd-hint">⌘K</kbd>
+      </button>
+      <button class="btn" id="theme-toggle" type="button" aria-label="Toggle color theme"><span id="theme-label">Light</span></button>
+      <button class="btn" id="print-btn" type="button">Print / PDF</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+
+    <section class="hero" aria-labelledby="h-name">
+      <div class="pills" id="pills"></div>
+      <h1 id="h-name" data-bind="name"></h1>
+      <p class="titleline" id="role-line"></p>
+      <p class="summary" id="summary"></p>
+      <div class="actions" id="actions"></div>
+    </section>
+
+    <div class="telemetry" id="telemetry" aria-label="Key figures"></div>
+
+    <section class="block" id="experience" aria-labelledby="h-exp">
+      <div class="sec-head">
+        <div>
+          <h2 id="h-exp">Experience</h2>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+          <div class="filters" id="filters" role="group" aria-label="Filter experience"></div>
+          <span class="sub" id="exp-count" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="roles" id="roles"></div>
+    </section>
+
+    <section class="block" id="architecture" aria-labelledby="h-arch">
+      <div class="sec-head">
+        <h2 id="h-arch">Selected systems</h2>
+        <span class="sub">open a card for the architecture and trade-offs</span>
+      </div>
+      <div class="cases" id="cases"></div>
+    </section>
+
+    <section class="block" id="skills" aria-labelledby="h-skills">
+      <div class="sec-head"><h2 id="h-skills">Technical stack</h2></div>
+      <dl class="matrix" id="matrix"></dl>
+    </section>
+
+    <section class="block" id="education" aria-labelledby="h-edu">
+      <div class="sec-head"><h2 id="h-edu">Education</h2></div>
+      <div class="edu" id="edu"></div>
+    </section>
+
+    <footer id="footer"></footer>
+  </div>
+</main>
+
+<!-- Command palette -->
+<div class="backdrop" id="backdrop" hidden></div>
+<div class="palette" id="palette" hidden>
+  <div class="box" role="dialog" aria-modal="true" aria-label="Command palette">
+    <input id="pinput" type="text" placeholder="Type a command or search…" autocomplete="off" spellcheck="false"
+           role="combobox" aria-expanded="true" aria-controls="plist" aria-autocomplete="list">
+    <ul class="plist" id="plist" role="listbox" aria-label="Commands"></ul>
+    <div class="pfoot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> run</span><span><kbd>esc</kbd> close</span></div>
+  </div>
+</div>
+
+<!-- Architecture drawer -->
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="d-title" aria-hidden="true"></aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<noscript><p style="padding:24px">This page renders its content with JavaScript. The PDF version is available at <a href="CV_Raden_Ario_Damar_2026.pdf">CV_Raden_Ario_Damar_2026.pdf</a>.</p></noscript>
+
+<script>
+/* ==========================================================================
+   All CV content lives here. Edit this object; the page renders from it.
+   Anything marked "verify" is written from the stack and scope on the CV and
+   should be corrected to match what you actually built.
+   ========================================================================== */
+const PROFILE_DATA = {
+  name: "Raden Ario Damar",
+  title: "Senior Software Engineer",
+  focus: "Web Platforms & Systems Integration",
+  location: "Yogyakarta, Indonesia",
+  timezone: "WIB (UTC+7)",
+  status: "Senior Developer at Lintasarta",
+  summary:
+    "Builds web platforms and the integrations behind them: **Angular and TypeScript** on the front, **Laravel and Go** services behind. " +
+    "Currently connects a hospital information system to **BPJS and SATUSEHAT**; before that, automated desktop management for **100,000+ agents**.",
+  contact: {
+    email: "ramadoiranedar@gmail.com",
+    phone: "+62 822-6535-9419",
+    github: "https://github.com/ramadoiranedar",
+    linkedin: "https://www.linkedin.com/in/h4h4h4",                                   // add a URL to show a LinkedIn button
+    site: "https://ramadoiranedar.github.io",
+    resume: "CV_Raden_Ario_Damar_2026.pdf"
+  },
+  metrics: [
+    { value: "6",     unit: "yrs", label: "Production experience, 2020 to now" },
+    { value: "100K+", unit: "",    label: "Agents under desktop management" },
+    { value: "2",     unit: "",    label: "National health APIs integrated: BPJS, SATUSEHAT" },
+    { value: "6+",    unit: "",    label: "Client projects delivered at Refactory.id" }
+  ],
+  filters: [
+    { id: "all",     label: "All" },
+    { id: "backend", label: "Backend & Systems" },
+    { id: "arch",    label: "Architecture & Leadership" }
+  ],
+  experience: [
+    {
+      years: "2024 — Now", role: "Senior Developer", company: "Lintasarta",
+      tags: ["backend", "arch"],
+      points: [
+        "Lead module development for a web-based **hospital information system**, from technical planning through **code review**.",
+        "Build the **Angular** (JavaScript / TypeScript) frontend and the **Laravel** (PHP) backend.",
+        "Write **Golang** services that integrate the platform with **BPJS** and **SATUSEHAT**."
+      ],
+      stack: "Angular · TypeScript · Laravel · Go"
+    },
+    {
+      years: "2023 — 2024", role: "Developer", company: "Lintasarta",
+      tags: ["backend"],
+      points: [
+        "Built the **Laravel** backend and **Angular** frontend of the hospital information system.",
+        "Shipped features in an **Agile** team."
+      ],
+      stack: "Angular · Laravel · PHP"
+    },
+    {
+      years: "2022 — 2023", role: "Software Engineer", company: "PT. BixBox Teknologi Perkasa (Refactory.id)",
+      tags: ["backend"],
+      points: [
+        "Worked on a **ticketing system** and collaborated across teams on client projects, using Agile.",
+        "Developed websites, **microservices** and **REST APIs** in **PHP, Golang and JavaScript**.",
+        "Clients included **Lionparcel, Biofarma, TitipAja, Kurirmoo, Hanoman and AINO**."
+      ],
+      stack: "PHP · Go · JavaScript · REST"
+    },
+    {
+      years: "2020 — 2022", role: "IT Staff", company: "PT. Aldimana Solusi Teknologi",
+      tags: ["backend"],
+      points: [
+        "Managed a desktop management system covering **100,000+ agents**.",
+        "Automated desktop tasks with **VBScript, Shell Script and VB.NET**.",
+        "Built and maintained internal websites."
+      ],
+      stack: "VBScript · Shell · VB.NET"
+    }
+  ],
+  cases: [
+    {
+      id: "his",
+      title: "Hospital information system",
+      kicker: "Lintasarta · 2023 — now",
+      problem: "Clinical and administrative workflows in one web app, with eligibility and national-record data coming from BPJS and SATUSEHAT.",
+      stack: "Angular · TypeScript · Laravel (PHP) · Go",
+      impact: [{ v: "2", l: "national APIs" }, { v: "1", l: "Go integration layer" }],
+      // verify: diagram and trade-offs are drafted from the stack on the CV.
+      diagram:
+"  Browser\n" +
+"  Angular SPA (TypeScript)\n" +
+"        │  HTTPS / REST\n" +
+"        ▼\n" +
+"  Laravel API\n" +
+"  auth · domain logic · database\n" +
+"        │  internal API\n" +
+"        ▼\n" +
+"  Go integration service\n" +
+"        ├──────▶  BPJS\n" +
+"        └──────▶  SATUSEHAT",
+      tradeoffs: [
+        "**Integrations live in a separate Go service.** BPJS and SATUSEHAT contract changes stay out of the core app. Cost: one more deployable and an internal API to version.",
+        "**SPA and API are split.** Frontend and backend ship independently. Cost: validation rules exist on both sides; the server stays the source of truth.",
+        "**Senior owner reviews every module.** Slower merges, fewer regressions in clinical flows."
+      ],
+      links: []
+    },
+    {
+      id: "ticketing",
+      title: "Ticketing platform for multiple clients",
+      kicker: "Refactory.id · 2022 — 2023",
+      problem: "A ticketing system and supporting sites delivered across several client projects with different teams and different domains.",
+      stack: "PHP · Go · JavaScript · REST",
+      impact: [{ v: "6+", l: "clients" }, { v: "3", l: "languages" }],
+      // verify: diagram and trade-offs are drafted from the scope on the CV.
+      diagram:
+"  Client websites / apps\n" +
+"        │  REST\n" +
+"        ▼\n" +
+"  API layer\n" +
+"        │\n" +
+"   ┌────┴────────┐\n" +
+"   ▼             ▼\n" +
+"  PHP services   Go services\n" +
+"  (ticketing)    (microservices)",
+      tradeoffs: [
+        "**Microservices per domain.** Teams change one service without touching the rest. Cost: more moving parts per client.",
+        "**Mixed PHP and Go.** Go where throughput or concurrency matters, PHP where delivery speed does. Cost: two toolchains to maintain.",
+        "**REST as the contract between teams.** Easy to document and test with Postman and Swagger; chattier than gRPC."
+      ],
+      links: []
+    },
+    {
+      id: "desktop",
+      title: "Desktop management at fleet scale",
+      kicker: "Aldimana · 2020 — 2022",
+      problem: "A desktop management system spanning 100,000+ agents, where repetitive tasks had to run without manual work on each machine.",
+      stack: "VBScript · Shell Script · VB.NET",
+      impact: [{ v: "100K+", l: "agents" }, { v: "3", l: "automation stacks" }],
+      // verify: diagram and trade-offs are drafted from the scope on the CV.
+      diagram:
+"  Management console\n" +
+"        │  tasks / policy\n" +
+"        ▼\n" +
+"  Automation scripts\n" +
+"  VBScript · Shell · VB.NET\n" +
+"        │  run on agent\n" +
+"        ▼\n" +
+"  Agents on 100K+ desktops",
+      tradeoffs: [
+        "**Scripts instead of a compiled agent.** Quick to change across Windows and Linux hosts. Cost: harder to unit-test, so rollout discipline carries more weight.",
+        "**Automation over per-machine fixes.** One change reaches the whole fleet; a bad change does too.",
+        "**Internal websites on the same data.** Support staff read fleet state without touching the console."
+      ],
+      links: []
+    }
+  ],
+  stack: [
+    { group: "Languages & runtimes",   items: ["JavaScript", "TypeScript", "Go", "PHP", "VBScript", "VB.NET", "Shell", "HTML", "CSS"], primary: ["JavaScript", "TypeScript"] },
+    { group: "Frameworks & libraries", items: ["Angular", "React", "jQuery", "Laravel", "CodeIgniter", "Echo", "Gin"], primary: ["Angular"] },
+    { group: "APIs & architecture",    items: ["REST", "gRPC", "Microservices", "Agile"], primary: [] },
+    { group: "Data & storage",         items: ["PostgreSQL", "MySQL", "SQL Server", "Redis", "Elasticsearch"], primary: [] },
+    { group: "Tooling & platforms",    items: ["Git", "Docker", "Postman", "Swagger", "Linux", "macOS", "Windows"], primary: [] }
+  ],
+  education: { years: "2017 — 2021", school: "Bina Insani University", degree: "Bachelor of Informatics Engineering", gpa: "GPA 3.41" },
+  updated: "Nov 2026"
+};
+
+/* ============================ rendering ================================== */
+(function () {
+  "use strict";
+  const D = PROFILE_DATA;
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const fmt = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent || "");
+  const root = document.documentElement;
+
+  $$('[data-bind="name"]').forEach(n => (n.textContent = D.name));
+  $("#kbd-hint").textContent = isMac ? "⌘K" : "Ctrl K";
+
+  /* hero */
+  $("#pills").innerHTML =
+    `<span class="pill"><span class="dot" aria-hidden="true"></span>${esc(D.status)}</span>` +
+    `<span class="pill">${esc(D.location)}</span>` +
+    `<span class="pill">${esc(D.timezone)}</span>`;
+  $("#role-line").textContent = `${D.title} — ${D.focus}`;
+  $("#summary").innerHTML = fmt(D.summary);
+
+  const c = D.contact;
+  let actions = `<button class="btn primary" type="button" id="copy-email"><span data-copy-label>Copy email</span></button>`;
+  actions += `<a class="btn" href="${esc(c.github)}" target="_blank" rel="noopener">GitHub</a>`;
+  if (c.linkedin) actions += `<a class="btn" href="${esc(c.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>`;
+  actions += `<a class="btn" href="${esc(c.resume)}" target="_blank" rel="noopener">Resume PDF</a>`;
+  $("#actions").innerHTML = actions;
+
+  /* telemetry */
+  $("#telemetry").innerHTML = D.metrics.map(m =>
+    `<div class="tele"><div class="v">${esc(m.value)}${m.unit ? `<small>${esc(m.unit)}</small>` : ""}</div><div class="l">${esc(m.label)}</div></div>`
+  ).join("");
+
+  /* experience + filter */
+  $("#roles").innerHTML = D.experience.map((r, i) =>
+    `<article class="role" data-tags="${esc(r.tags.join(" "))}">
+      <div class="yrs">${esc(r.years)}</div>
+      <div>
+        <h3>${esc(r.role)}</h3>
+        <div class="co">${esc(r.company)}</div>
+        <ul>${r.points.map(p => `<li>${fmt(p)}</li>`).join("")}</ul>
+        <div class="tags">${esc(r.stack)}</div>
+      </div>
+    </article>`
+  ).join("");
+
+  $("#filters").innerHTML = D.filters.map((f, i) =>
+    `<button class="chip" type="button" data-filter="${esc(f.id)}" aria-pressed="${i === 0}">${esc(f.label)}</button>`
+  ).join("");
+
+  function applyFilter(id) {
+    let shown = 0;
+    $$(".role").forEach(el => {
+      const ok = id === "all" || el.dataset.tags.split(" ").includes(id);
+      el.hidden = !ok;
+      if (ok) shown++;
+    });
+    $$("#filters .chip").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.filter === id)));
+    $("#exp-count").textContent = `${shown} of ${D.experience.length} roles`;
+  }
+  $("#filters").addEventListener("click", e => {
+    const b = e.target.closest("[data-filter]");
+    if (b) applyFilter(b.dataset.filter);
+  });
+  applyFilter("all");
+
+  /* case studies */
+  $("#cases").innerHTML = D.cases.map(k =>
+    `<button class="case" type="button" data-case="${esc(k.id)}" aria-haspopup="dialog">
+      <span class="kicker">${esc(k.kicker)}</span>
+      <h3>${esc(k.title)}</h3>
+      <p>${esc(k.problem)}</p>
+      <span class="stack">${esc(k.stack)}</span>
+      <span class="impact">${k.impact.map(m => `<div><b>${esc(m.v)}</b><span>${esc(m.l)}</span></div>`).join("")}</span>
+      <span class="open">View architecture</span>
+    </button>`
+  ).join("");
+
+  /* stack matrix */
+  $("#matrix").innerHTML = D.stack.map(g =>
+    `<div class="mrow"><dt>${esc(g.group)}</dt><dd>${g.items.map(i => `<span${g.primary.includes(i) ? ' class="em"' : ""}>${esc(i)}</span>`).join(" ")}</dd></div>`
+  ).join("");
+
+  /* education + footer */
+  const e = D.education;
+  $("#edu").innerHTML = `<div class="yrs">${esc(e.years)}</div><div><h3>${esc(e.school)}</h3><p>${esc(e.degree)} · ${esc(e.gpa)}</p></div>`;
+  $("#footer").innerHTML = `<span>${esc(D.name)}</span><span>${esc(c.email)}</span><span>Updated ${esc(D.updated)}</span>`;
+
+  /* ============================ helpers ================================== */
+  let toastTimer;
+  function toast(msg) {
+    const t = $("#toast");
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => (t.hidden = true), 2000);
+  }
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; }
+    catch (_) {
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.style.cssText = "position:fixed;opacity:0;top:0;left:0";
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand("copy"); } catch (__) {}
+      ta.remove(); return ok;
+    }
+  }
+  let copyTimer;
+  async function copyEmail() {
+    const ok = await copyText(c.email);
+    const labels = $$("[data-copy-label]");
+    if (ok) {
+      labels.forEach(l => (l.textContent = "Copied ✓"));
+      clearTimeout(copyTimer);
+      copyTimer = setTimeout(() => labels.forEach(l => (l.textContent = "Copy email")), 2000);
+      toast("Email copied");
+    } else toast("Copy failed — " + c.email);
+  }
+  $("#copy-email").addEventListener("click", copyEmail);
+
+  function go(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: "auto", block: "start" });
+    try { history.replaceState(null, "", "#" + id); } catch (_) {}
+  }
+  $("#brand").addEventListener("click", ev => { ev.preventDefault(); window.scrollTo(0, 0); });
+
+  /* theme */
+  function setTheme(t) {
+    root.dataset.theme = t;
+    try { localStorage.setItem("theme", t); } catch (_) {}
+    $("#theme-label").textContent = t === "dark" ? "Light" : "Dark";
+    const m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.content = t === "dark" ? "#09090B" : "#FFFFFF";
+  }
+  const toggleTheme = () => setTheme(root.dataset.theme === "dark" ? "light" : "dark");
+  setTheme(root.dataset.theme === "light" ? "light" : "dark");
+  $("#theme-toggle").addEventListener("click", toggleTheme);
+  $("#print-btn").addEventListener("click", () => window.print());
+
+  /* ============================ scroll lock ============================== */
+  let locks = 0;
+  const lock = () => { if (locks++ === 0) document.body.style.overflow = "hidden"; };
+  const unlock = () => { if (--locks <= 0) { locks = 0; document.body.style.overflow = ""; } };
+
+  /* ============================ drawer =================================== */
+  const drawer = $("#drawer"), backdrop = $("#backdrop");
+  let drawerTrigger = null;
+
+  function openCase(id, trigger) {
+    const k = D.cases.find(x => x.id === id);
+    if (!k) return;
+    drawerTrigger = trigger || document.activeElement;
+    drawer.innerHTML =
+      `<div class="dhead"><span class="mono">${esc(k.kicker)}</span><button class="btn" type="button" id="d-close" aria-label="Close drawer">Close <kbd>esc</kbd></button></div>
+       <div class="dbody">
+         <h3 id="d-title">${esc(k.title)}</h3>
+         <p class="prob">${esc(k.problem)}</p>
+         <h4>Architecture</h4>
+         <pre aria-label="Architecture diagram">${esc(k.diagram)}</pre>
+         <h4>Trade-offs</h4>
+         <ol>${k.tradeoffs.map(t => `<li>${fmt(t)}</li>`).join("")}</ol>
+         <h4>Stack</h4>
+         <p class="dstack">${esc(k.stack)}</p>
+         ${k.links && k.links.length ? `<div class="dlinks">${k.links.map(l => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</div>` : ""}
+       </div>`;
+    drawer.classList.add("open");
+    drawer.setAttribute("aria-hidden", "false");
+    backdrop.hidden = false;
+    lock();
+    drawer.scrollTop = 0;
+    $("#d-close").focus();
+  }
+  function closeDrawer() {
+    if (!drawer.classList.contains("open")) return;
+    drawer.classList.remove("open");
+    drawer.setAttribute("aria-hidden", "true");
+    if (palette.hidden) backdrop.hidden = true;
+    unlock();
+    if (drawerTrigger && document.contains(drawerTrigger)) drawerTrigger.focus();
+  }
+  $("#cases").addEventListener("click", ev => {
+    const b = ev.target.closest("[data-case]");
+    if (b) openCase(b.dataset.case, b);
+  });
+  drawer.addEventListener("click", ev => { if (ev.target.closest("#d-close")) closeDrawer(); });
+  backdrop.addEventListener("click", () => { if (!palette.hidden) closePalette(); else closeDrawer(); });
+
+  /* ============================ command palette ========================== */
+  const palette = $("#palette"), pinput = $("#pinput"), plist = $("#plist");
+  const commands = [
+    { group: "Navigate", label: "Go to Experience",       run: () => go("experience") },
+    { group: "Navigate", label: "Go to Architecture",     hint: "selected systems", run: () => go("architecture") },
+    { group: "Navigate", label: "Go to Skills",           hint: "technical stack", run: () => go("skills") },
+    { group: "Navigate", label: "Go to Education",        run: () => go("education") },
+    { group: "Navigate", label: "Back to top",            run: () => window.scrollTo(0, 0) }
+  ];
+  D.cases.forEach(k => commands.push({ group: "Systems", label: "Open: " + k.title, hint: k.kicker.split(" · ")[0], run: () => { const t = document.querySelector(`[data-case="${k.id}"]`); openCase(k.id, t); } }));
+  commands.push({ group: "Actions", label: "Copy email", hint: c.email, run: copyEmail });
+  commands.push({ group: "Actions", label: "Open GitHub", hint: c.github.replace("https://", ""), run: () => window.open(c.github, "_blank", "noopener") });
+  if (c.linkedin) commands.push({ group: "Actions", label: "Open LinkedIn", run: () => window.open(c.linkedin, "_blank", "noopener") });
+  commands.push({ group: "Actions", label: "Open resume PDF", hint: c.resume, run: () => window.open(c.resume, "_blank", "noopener") });
+  commands.push({ group: "Actions", label: "Toggle light / dark theme", run: toggleTheme });
+  commands.push({ group: "Actions", label: "Print / save as PDF", run: () => setTimeout(() => window.print(), 50) });
+
+  let filtered = [], active = 0, paletteReturn = null;
+
+  function renderPalette() {
+    const q = pinput.value.trim().toLowerCase();
+    const tokens = q ? q.split(/\s+/) : [];
+    filtered = commands.filter(cmd => {
+      const hay = (cmd.group + " " + cmd.label + " " + (cmd.hint || "")).toLowerCase();
+      return tokens.every(t => hay.includes(t));
+    });
+    if (active >= filtered.length) active = Math.max(0, filtered.length - 1);
+    if (!filtered.length) {
+      plist.innerHTML = `<li class="pempty" role="presentation">No command matches “${esc(pinput.value)}”</li>`;
+      pinput.removeAttribute("aria-activedescendant");
+      return;
+    }
+    let html = "", last = "";
+    filtered.forEach((cmd, i) => {
+      if (cmd.group !== last) { html += `<li class="pgroup" role="presentation">${esc(cmd.group)}</li>`; last = cmd.group; }
+      html += `<li class="popt" role="option" id="cmd-${i}" data-i="${i}" aria-selected="${i === active}"><span>${esc(cmd.label)}</span>${cmd.hint ? `<span class="hint">${esc(cmd.hint)}</span>` : ""}</li>`;
+    });
+    plist.innerHTML = html;
+    pinput.setAttribute("aria-activedescendant", "cmd-" + active);
+    const el = $("#cmd-" + active);
+    if (el) el.scrollIntoView({ block: "nearest" });
+  }
+  function setActive(n) {
+    if (!filtered.length) return;
+    active = (n + filtered.length) % filtered.length;
+    $$(".popt", plist).forEach(o => o.setAttribute("aria-selected", String(+o.dataset.i === active)));
+    pinput.setAttribute("aria-activedescendant", "cmd-" + active);
+    const el = $("#cmd-" + active);
+    if (el) el.scrollIntoView({ block: "nearest" });
+  }
+  function openPalette() {
+    if (!palette.hidden) return;
+    paletteReturn = document.activeElement;
+    pinput.value = ""; active = 0;
+    palette.hidden = false; backdrop.hidden = false;
+    lock(); renderPalette(); pinput.focus();
+  }
+  function closePalette(restore) {
+    if (palette.hidden) return;
+    palette.hidden = true;
+    if (!drawer.classList.contains("open")) backdrop.hidden = true;
+    unlock();
+    if (restore !== false && paletteReturn && document.contains(paletteReturn)) paletteReturn.focus();
+  }
+  function runActive() {
+    const cmd = filtered[active];
+    if (!cmd) return;
+    closePalette(false);
+    cmd.run();
+  }
+  pinput.addEventListener("input", () => { active = 0; renderPalette(); });
+  pinput.addEventListener("keydown", ev => {
+    if (ev.key === "ArrowDown") { ev.preventDefault(); setActive(active + 1); }
+    else if (ev.key === "ArrowUp") { ev.preventDefault(); setActive(active - 1); }
+    else if (ev.key === "Enter") { ev.preventDefault(); runActive(); }
+    else if (ev.key === "Tab") { ev.preventDefault(); }
+    else if (ev.key === "Home" && ev.ctrlKey) { setActive(0); }
+  });
+  plist.addEventListener("mousemove", ev => { const o = ev.target.closest(".popt"); if (o && +o.dataset.i !== active) setActive(+o.dataset.i); });
+  plist.addEventListener("click", ev => { const o = ev.target.closest(".popt"); if (o) { active = +o.dataset.i; runActive(); } });
+  palette.addEventListener("mousedown", ev => { if (ev.target === palette) closePalette(); });
+  $("#open-palette").addEventListener("click", openPalette);
+
+  /* ============================ global keys ============================== */
+  document.addEventListener("keydown", ev => {
+    if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === "k") {
+      ev.preventDefault();
+      palette.hidden ? openPalette() : closePalette();
+      return;
+    }
+    if (ev.key === "Escape") {
+      if (!palette.hidden) { closePalette(); ev.preventDefault(); }
+      else if (drawer.classList.contains("open")) { closeDrawer(); ev.preventDefault(); }
+    }
+    // keep keyboard focus inside the open drawer
+    if (ev.key === "Tab" && drawer.classList.contains("open") && palette.hidden) {
+      const f = $$("button, a[href]", drawer).filter(n => !n.disabled);
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (ev.shiftKey && document.activeElement === first) { ev.preventDefault(); last.focus(); }
+      else if (!ev.shiftKey && document.activeElement === last) { ev.preventDefault(); first.focus(); }
+      else if (!drawer.contains(document.activeElement)) { ev.preventDefault(); first.focus(); }
+    }
+  });
+})();
+</script>
+</body>
+</html>
